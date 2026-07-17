@@ -17,6 +17,18 @@ int main () {
 
         if (args[0] == NULL) continue; // no command? move on
         if (strcmp(args[0], "exit") == 0) break; // command==exit?terminate the program
+        
+        if (strcmp(args[0], "cd") == 0){ // 0 args holds cd cmd and 1 holds the dir
+            if (args[1] == NULL){
+                fprintf (stderr, "cd: expected an argument \n");
+            }
+            else {
+                if (chdir(args[1]) != 0){ // dir doesnt exist 
+                            perror("cd failed");
+                        }
+            }
+            continue;
+        }
 
         pid_t pid = fork(); // program cloner
         if (pid == 0){ // cloned program
